@@ -41,6 +41,7 @@ public class AppController {
 		return "login";
 	}
 
+
 	@GetMapping("/register_user")
 	public String registerUser(Model model){
 		model.addAttribute("user", new User());
@@ -74,15 +75,14 @@ public class AppController {
 
 		return "register_success";
 	}
-	//--------------------------users
+
 	@GetMapping("/users")
 	public String listUsers(Model model) {
 		List<User> listUsers = userRepo.findAll();
 		model.addAttribute("listUsers", listUsers);
-
 		return "users";
 	}
-	//--------------------------task
+
 	@GetMapping("/tasks")
 	public String listTasks(Model model) {
 		List<Task> listTasks = taskRepo.findAll();
