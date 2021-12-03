@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.Ordered;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,6 +62,7 @@ public class AppController {
 		user.setPassword(encodedPassword);
 		//-----
 		userRepo.save(user);
+		System.out.println("急了");
 		//-----
 		return "register_success";
 	}
@@ -83,12 +85,16 @@ public class AppController {
 		return "users";
 	}
 
-	@GetMapping("/tasks")
-	public String listTasks(Model model) {
+	@GetMapping ("/viewTask")
+	public String viewTask(Model model) {
 		List<Task> listTasks = taskRepo.findAll();
 		model.addAttribute("listTasks", listTasks);
-		return "tasks";
+		Object temp= SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println("麻麻的");
+		if(temp instanceof User) {
+			return "tasks_member";
+		}else{
+			return "tasks_manager";
+		}
 	}
-
-
 }
