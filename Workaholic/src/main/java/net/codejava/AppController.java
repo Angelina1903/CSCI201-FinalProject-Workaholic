@@ -21,6 +21,8 @@ public class AppController {
 
 	@Autowired
 	private UserRepository userRepo;
+	@Autowired
+	private TaskRepository taskRepo;
 	
 	@GetMapping("")
 	public String viewHomePage() {
@@ -38,6 +40,8 @@ public class AppController {
 	public String login() {
 		return "login";
 	}
+
+
 
 	/*
 	@GetMapping("/login")
@@ -72,13 +76,22 @@ public class AppController {
 		
 		return "register_success";
 	}
-	
+
 	@GetMapping("/users")
 	public String listUsers(Model model) {
 		List<User> listUsers = userRepo.findAll();
 		model.addAttribute("listUsers", listUsers);
-		
+
 		return "users";
 	}
+
+	@GetMapping("/tasks")
+	public String listTasks(Model model) {
+		List<Task> listTasks = taskRepo.findAll();
+		model.addAttribute("listTasks", listTasks);
+		return "tasks";
+	}
+
+
 
 }
