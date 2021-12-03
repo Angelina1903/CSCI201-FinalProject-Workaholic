@@ -37,11 +37,11 @@ public class AppController {
 		return "pick_roll";
 	}
 
+
 	@GetMapping("/login")
 	public String login() {
 		return "login";
 	}
-
 
 	@GetMapping("/register_user")
 	public String registerUser(Model model){
@@ -90,11 +90,24 @@ public class AppController {
 		List<Task> listTasks = taskRepo.findAll();
 		model.addAttribute("listTasks", listTasks);
 		Object temp= SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println("麻麻的");
 		if(temp instanceof User) {
 			return "tasks_member";
 		}else{
 			return "tasks_manager";
 		}
 	}
+
+	@GetMapping("/add_a_task")
+	public String addATask(Model model) {
+		System.out.println("下辈子不学cs");
+		model.addAttribute("task", new Task());
+		return "add_task";
+	}
+
+	@PostMapping("/process_add_task")
+	public String processAddTask(Task task) {
+		taskRepo.save(task);
+		return "task_manager";
+	}
+
 }
