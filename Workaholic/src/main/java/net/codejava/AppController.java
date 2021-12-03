@@ -22,18 +22,18 @@ public class AppController {
 	@Autowired
 	private UserRepository userRepo;
 	@Autowired
+	private ManagerRepository managerRepo;
+	@Autowired
 	private TaskRepository taskRepo;
 	
 	@GetMapping("")
 	public String viewHomePage() {
 		return "index";
 	}
-	
+
 	@GetMapping("/register")
-	public String showRegistrationForm(Model model) {
-		model.addAttribute("user", new User());
-		
-		return "signup_form";
+	public String showRegistrationForm() {
+		return "pick_roll";
 	}
 
 	@GetMapping("/login")
@@ -41,42 +41,40 @@ public class AppController {
 		return "login";
 	}
 
-
-
-	/*
-	@GetMapping("/login")
-	public String showLoginPage(Model model) {
-		model.addAttribute("loginform",new LoginForm());
-		return "login";
+	@GetMapping("/register_user")
+	public String registerUser(Model model){
+		model.addAttribute("user", new User());
+		return "signup_form_user";
 	}
 
-	@PostMapping("/process_login")
-	public String processLogin(LoginForm loginform){
-		String username=loginform.getKey();
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String password= passwordEncoder.encode(loginform.getValue());
-		User temp = userRepo.findByEmail(username);
-		if(temp!=null&&temp.getPassword()==password){
-			System.out.print("user found");
+	@GetMapping("/register_manager")
+	public String registerManager(Model model){
+		model.addAttribute("manager", new Manager());
+		return "signup_form_manager";
+	}
 
-			return "users";
-		}
-		else{
-			return "index";
-		}
-	}*/
-
-	@PostMapping("/process_register")
-	public String processRegister(User user) {
+	@PostMapping("/process_user_register")
+	public String processUserRegister(User user) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodedPassword);
-		
+		//-----
 		userRepo.save(user);
-		
+		//-----
 		return "register_success";
 	}
 
+	@PostMapping("/process_manager_register")
+	public String processManagerRegister(Manager manager) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String encodedPassword = passwordEncoder.encode(manager.getPassword());
+		manager.setPassword(encodedPassword);
+		manager.setIsManager(true);
+		managerRepo.save(manager);
+
+		return "register_success";
+	}
+	//--------------------------users
 	@GetMapping("/users")
 	public String listUsers(Model model) {
 		List<User> listUsers = userRepo.findAll();
@@ -84,14 +82,13 @@ public class AppController {
 
 		return "users";
 	}
-
+	//--------------------------task
 	@GetMapping("/tasks")
 	public String listTasks(Model model) {
 		List<Task> listTasks = taskRepo.findAll();
 		model.addAttribute("listTasks", listTasks);
 		return "tasks";
 	}
-
 
 
 }
