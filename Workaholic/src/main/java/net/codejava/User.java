@@ -27,6 +27,9 @@ public class User {
 	@Column(name = "last_name", nullable = false, length = 20)
 	private String lastName;
 
+	@Column(name = "is_Manager", nullable = false) //added
+	private boolean manager;
+
 	public Long getId() {
 		return id;
 	}
@@ -66,7 +69,8 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
-	
-	
+
+	public void setManager(boolean manager) { this.manager = manager;}
+
+	public boolean getManager() { return manager;}
 }

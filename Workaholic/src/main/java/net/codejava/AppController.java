@@ -23,8 +23,6 @@ public class AppController {
 	@Autowired
 	private UserRepository userRepo;
 	@Autowired
-	private ManagerRepository managerRepo;
-	@Autowired
 	private TaskRepository taskRepo;
 	
 	@GetMapping("")
@@ -51,7 +49,7 @@ public class AppController {
 
 	@GetMapping("/register_manager")
 	public String registerManager(Model model){
-		model.addAttribute("manager", new Manager());
+		model.addAttribute("manager", new User());
 		return "signup_form_manager";
 	}
 
@@ -60,21 +58,18 @@ public class AppController {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodedPassword);
-		//-----
+		user.setManager(false);
 		userRepo.save(user);
-		System.out.println("急了");
-		//-----
 		return "register_success";
 	}
 
 	@PostMapping("/process_manager_register")
-	public String processManagerRegister(Manager manager) {
+	public String processManagerRegister(User manager) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = passwordEncoder.encode(manager.getPassword());
 		manager.setPassword(encodedPassword);
-		manager.setIsManager(true);
-		managerRepo.save(manager);
-
+		manager.setManager(true);
+		userRepo.save(manager);
 		return "register_success";
 	}
 
@@ -87,19 +82,17 @@ public class AppController {
 
 	@GetMapping ("/viewTask")
 	public String viewTask(Model model) {
-		List<Task> listTasks = taskRepo.findAll();
-		model.addAttribute("listTasks", listTasks);
-		Object temp= SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if(temp instanceof User) {
-			return "tasks_member";
-		}else{
+		CustomUserDetails temp= (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(temp.getManager()) {
+			System.out.println("给我写麻了");
 			return "tasks_manager";
+		}else{
+			return "tasks_member";
 		}
 	}
 
 	@GetMapping("/add_a_task")
 	public String addATask(Model model) {
-		System.out.println("下辈子不学cs");
 		model.addAttribute("task", new Task());
 		return "add_task";
 	}
@@ -107,7 +100,9 @@ public class AppController {
 	@PostMapping("/process_add_task")
 	public String processAddTask(Task task) {
 		taskRepo.save(task);
-		return "task_manager";
+		return "tasks_manager";
 	}
+
+
 
 }
