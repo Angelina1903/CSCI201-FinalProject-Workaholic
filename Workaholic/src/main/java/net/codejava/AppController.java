@@ -3,19 +3,13 @@ package net.codejava;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.core.Ordered;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
-import javax.security.auth.login.LoginContext;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AppController {
@@ -83,8 +77,9 @@ public class AppController {
 	@GetMapping ("/viewTask")
 	public String viewTask(Model model) {
 		CustomUserDetails temp= (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<Task> listTasks = taskRepo.findAll();
+		model.addAttribute("listTasks", listTasks);
 		if(temp.getManager()) {
-			System.out.println("给我写麻了");
 			return "tasks_manager";
 		}else{
 			return "tasks_member";
@@ -98,11 +93,10 @@ public class AppController {
 	}
 
 	@PostMapping("/process_add_task")
-	public String processAddTask(Task task) {
+	public ModelAndView processAddTask(Task task) {
 		taskRepo.save(task);
-		return "tasks_manager";
+		return new ModelAndView("redirect:/viewTask");
 	}
-
 
 
 }
