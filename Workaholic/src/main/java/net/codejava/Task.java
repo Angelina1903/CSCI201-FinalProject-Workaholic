@@ -24,8 +24,8 @@ public class Task {
 	@Column(name = "due_date", nullable = false, length = 20)
 	private String dueDate;
 
-	@Column(name = "claimed", nullable = false, length = 20)
-	private boolean claimed=false;
+	@Column(name = "urgent", nullable = false, length = 20)
+	private String urgent;
 
 	public String getName() {
 		return name;
@@ -51,11 +51,11 @@ public class Task {
 		this.dueDate = dueDate;
 	}
 
-	public boolean isClaimed() {
-		return claimed;
+	public String getUrgent() {
+		return urgent;
 	}
 
-	public void setClaimed(boolean claimed) {
-		this.claimed = claimed;
+	public void setUrgent(String urgent) {
+		this.urgent = urgent;
 	}
 }
