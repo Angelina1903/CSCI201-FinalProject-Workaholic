@@ -6,21 +6,35 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 	<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,700&display=swap" rel="stylesheet">
 </head>
 <style>
+<!--html, body {-->
+<!--    margin: 0;-->
+<!--    padding: 0;-->
+<!--    background-color: black;-->
+
+<!--  }-->
 .login h3{
 	text-align: center;
 	margin-left: 13%;
 	margin-right: auto;
+	margin-top: 3%;
 	padding-left: auto;
+	font-family: 'Merriweather', serif;
+	font-size: 40px;
 }
 .login h4{
+	position: relative;
 	text-align: center;
-	margin-left: 13%;
+	padding-left: 3%;
 	margin-right: auto;
-	padding-left: auto;
+	color:white;
 }
 .login{
+		text-decoration:none;
 		position:absolute;
 		top:20%;
 		background-color: rgba(255,255,255,0.6);
@@ -33,7 +47,7 @@
 		padding-bottom: 3%;
 		/*height:100%;*/
 		margin-top: 10%;
-
+		border-radius: 15px 15px 15px 15px;
 	}
 	.background img{
 		min-height:100%;
@@ -49,6 +63,32 @@
 	#total{
 		position:relative;
 	}
+	.check-mark-img{
+		width: 60%;
+		height: auto;
+		text-align:center;
+		margin-left: 29%;
+		margin-right: auto;
+		padding-left: auto;
+	}
+	.btn-primary {
+		width: 18rem;
+		height: 36px;
+		color: white;
+		margin-top: 6%;
+		margin-left: 29%;
+		background-color: purple;
+		border-color: purple;
+		border-radius: 15px 15px 15px 15px;
+		text-decoration:none;
+	}
+	.btn-primary:hover {
+		color: white;
+		background-color: indigo;
+		border-color: indigo;
+		border-radius: 15px 15px 15px 15px;
+		text-decoration:none;
+	}
 </style>
 <body>
 <div id="total">
@@ -56,8 +96,13 @@
 		<img th:src="@{/images/city3.jpeg}" class="img-fluid" alt="login-img">
 	</div>
 	<div class="container login">
+		<div>
+			<img th:src="@{/images/check_mark.png}" alt="login-img" class="check-mark-img">
+		</div>
 		<h3>You have signed up successfully!</h3>
-		<h4><a th:href="@{/login}" style="color:purple">Click here to Login</a></h4>
+		<div class="btn-primary">
+			<h4><a th:href="@{/login}" style="text-decoration:none; color:white;">Go back to Login</a></h4>
+		</div>
 	</div>
 </div>
 </body>
