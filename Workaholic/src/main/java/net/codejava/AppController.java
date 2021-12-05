@@ -25,6 +25,12 @@ public class AppController {
 		return "index";
 	}
 
+	@GetMapping("/main")
+	public String backMain() {
+		return "index";
+	}
+
+
 	@GetMapping("/register")
 	public String showRegistrationForm() {
 		return "pick_roll";
