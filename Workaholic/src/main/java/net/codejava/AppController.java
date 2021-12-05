@@ -1,5 +1,6 @@
 package net.codejava;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +79,26 @@ public class AppController {
 	public String viewTask(Model model) {
 		CustomUserDetails temp= (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<Task> listTasks = taskRepo.findAll();
+
+		// create a new list to store all the claimed tasks
+		List<Task> claimedTasks = new ArrayList<>();
+		for(Task i: listTasks) {
+			if(i.isClaimed()) {
+				claimedTasks.add(i);
+			}
+		}
+
+		// create a new list to store all the claimed tasks
+		List<Task> unclaimedTasks = new ArrayList<>();
+		for(Task i: listTasks) {
+			if(!i.isClaimed()) {
+				unclaimedTasks.add(i);
+			}
+		}
+
 		model.addAttribute("listTasks", listTasks);
+		model.addAttribute("claimedTasks", claimedTasks);
+		model.addAttribute("unclaimedTasks", unclaimedTasks);
 		if(temp.getManager()) {
 			return "tasks_manager";
 		}else{
