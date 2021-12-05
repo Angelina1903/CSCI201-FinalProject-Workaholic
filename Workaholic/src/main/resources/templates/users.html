@@ -1,558 +1,185 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="ISO-8859-1">
-	<title>List Users</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-	<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <meta charset="ISO-8859-1">
+    <title>List Users</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <style>
-	html, body {
-		margin: 0;
-		padding: 0;
-		background-color: black;
-
-	}
-
-	.navbar h2{
-		font-family: "Sofia", sans-serif;
+    html, body {
+        margin: 0;
+        padding: 0;
+        background: url([[@{/images/index-bg-2.jpg}]]);
+		background-size: cover;
+    }
 
 
-	}
-	.row{
-		padding-bottom:6%;
-	}
-	#Current{
-		width:20%;
-		/*height:300px;*/
+    .btn{
+        color:white;
+        background-color: #6300BF;
+    }
 
-		background-color: black;
-	}
-	#Role_In_Need{
-		width:20%;
-		background-color: black;
-		height:50vh;
-	}
-	/*Current member headline*/
-	#Current #current_member{
-		padding-top: 8%;
-		color:white;
-		font-size:100%;
-		text-align: center;
-		padding-bottom: 6%;
-	}
-	#Current h2{
-		margin-top: 7%;
-	}
-	#Role_In_Need #in_need{
-		padding-top: 8%;
-		color:white;
-		font-size:100%;
-		text-align: center;
-		padding-bottom: 6%;
-	}
+    .container-fluid{
 
+        padding-bottom: 3%;
 
-	/*the size of round img in each div*/
-	#Role_In_Need img{
-		width:55%;
-		margin-left: 40%;
-		box-sizing: border-box;
-		padding-bottom: 20%;
-
-	}
-
-	#Current img{
-		width:55%;
-		margin-left: 40%;
-		box-sizing: border-box;
-		padding-bottom: 20%;
-
-	}
-
-	/*#Current p{
-		font-size:100%;
-		padding-top: 0%;
-
-	}*/
-	#Current .pic{
-		width:30%;
-		margin-left:10%;
-		float:left;
-	}
-	#Current .text{
-		width:60%;
-		float:left;
-		/*font-size: 80%;*/
-		line-height: 20%;
-		margin-top: 3%;
-		padding-bottom: 3%;
-	}
-
-	#Role_In_Need .pic{
-		width:30%;
-		margin-left:10%;
-		float:left;
-	}
-	#Role_In_Need .text{
-		width:60%;
-		float:left;
-		/*font-size: 80%;*/
-		line-height: 20%;
-		margin-top: 3%;
-		padding-bottom: 3%;
-		color:white;
-		font-size:80%;
-		padding-top: 3%;
-	}
-	.row{
-		clear:both;
-	}
-	#Current .role{
-		color:white;
-		font-size: 80%;
-	}
-	#Current .name{
-		font-size:70%;
-		color:grey;
-		line-height:120%;
-	}
-
-	.needed_role{
-		line-height:120%;
-	}
-
-
-	/*#Teamup p{
-		background-color: purple;
-		color:white;
-
-		margin-left:0;
-		padding-top: 7px;
-		padding-left:20px;
-		padding-right:auto;
-		text-align: center;
-
-	}*/
-
-	/*#Teamup{
-		margin-top: 0px;
-		margin-bottom: 0px;
-		padding-top: 0px;
-		padding-bottom: 0px;
-		padding-left: 3%;
-		padding-right: 9%;
-
-		height:7vh;
-		background-color: purple;
-		margin-left: 0;
-		/*padding-left: 0;*/
-
-
-	.navbar p{
-		color:white;
-		/*background-color: purple*/
-		/*padding-left: 10%;
-		margin-left: 10;*/
-	}
-
-	/*.d-flex .btn{
-		color:purple;
-	}*/
-	.btn{
-		color:white;
-		background-color: #6300BF;
-	}
-	/*.nav-item {
-		padding-left: 20%;
-
-	}*/
-	.navbar-brand{
-		color:#6300BF;
-		padding-top: 0;
-		padding-bottom: 0;
-		margin-bottom: 0;
-		/*height:10vh;*/
-		margin-left: 30px;
-
-	}
-	.dropdown-menu{
-		background-color: #6300BF;
-	}
-	.dropdown-menu a{
-		background-color: #6300BF;
-		color:white;
-	}
-	.navbar-nav{
-		margin-left:10%;
-	}
-	.container-fluid{
-		padding-top: 0;
-		padding-bottom: 0;
-		margin-top: 0;
-		margin-bottom:0;
-	}
-	/*#navbarDropdownMenuLink{
-		padding-left: 4%;
-		margin-left: 20%;
-	}*/
-	/*#Role_In_Need{
-		height:50vh;
-	}*/
-
-	#Teamup{
-		float:left;
-		width:20%;
-		text-align: center;
-		background-color: #6300BF;
-		margin-bottom: 0;
-		padding-bottom: 0;
-		height:10vh;
-		/*margin-top: 20%*/
-		/*padding-bottom:auto;*/
-	}
-	#Teamup h4{
-		margin: 20px;
-		margin-bottom: auto;
-		background-color: #6300BF;
-		color:white;
-	}
-	.container-fluid{
-		float:left;
-	}
-	#total{
-		clear:both;
-	}
-
-	#main_content{
-		width: 80%;
-		float:left;
-		background-color: black;
-		margin-left:20%;
-		margin-top: 0;
-		padding-top: 0;
-		height:100%;
-		position:absolute;
-		top:9.9vh;
-		left:0%;
-
-	}
-	/*.card{
-		height:10vh;
-	}
-*/
-	/*#leftbar{
-		float:left;
-	}*/
-	/*main-content*/
-	#main_content .container{
-		width:100%;
-	}
-
-	/*card*/
-	/*.card{
-		width:18%;
-		background-color: pink;
-		margin-left:3%;
-		height: 20%;
-		margin-top:3%;
-
-	}*/
-	/*.card-body{
-		width:30%;
-	}*/
-	.card img{
-		width:60%;
-		margin-left: auto;
-		margin-right: auto;
-		margin-top: 2%;
-	}
-
-	/*.card{
-		width:30%;
-	}*/
-
-	.col{
-		margin-top: 5%;
-		/*margin-left: 2%;*/
-		/*background-color: blue;*/
-
-	}
-
-	#main_content .container{
-		margin-left: 3%;
-		margin-right: 3%;
-		width:94%;
-	}
-
-	.card-body p{
-		line-height:100%;
-		margin-top: 5%;
-		font-size: 70%;
-
-		margin-bottom:0%;
-	}
-	.card-body a{
-		font-size:70%;
-		margin-top: 0;
-	}
-	.card-body{
-		text-align: center;
-	}
-
-	.num-result{
-		margin-top: 3%;
-		font-size: 90%;
-		margin-left: 4%;
-	}
-	.body{
-		width:80%;
-		height:80%;
-	}
+    }
 
 
 
+
+
+    #main_content{
+        /*width: 80%;*/
+        float:left;
+        margin-left:5%;
+        margin-right:5%;
+
+        padding-top: 0;
+        height:100%;
+        margin-bottom: 3%;
+        /*position:absolute;*/
+        /*top:9.9vh;*/
+        /*left:0%;*/
+
+    }
+
+    .card img{
+        width:60%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 2%;
+    }
+
+    .card{
+        width:20%;
+        margin-left: 2.5%;
+        margin-right: 2.5%;
+        float:left;
+        box-sizing: border-box;
+        margin-top:3%;
+    }
+
+
+
+
+
+    .card-body p{
+        line-height:100%;
+        margin-top: 5%;
+        font-size: 70%;
+
+        margin-bottom:0%;
+    }
+    .card-body a{
+        font-size:70%;
+        margin-top: 0;
+    }
+    .card-body{
+        text-align: center;
+    }
+
+
+    #Teamup{
+        color:white;
+        background-color: indigo;
+        width:100%;
+        text-align:center;
+        padding-top: 1%;
+        padding-bottom: 1%;
+    }
+
+
+
+    .theform{
+        /*background-color: indigo;*/
+        color: white;
+        margin-top: 2%;
+        background-color: indigo;
+        margin-left: 2%;
+        border-radius: 10%;
+        padding:1%;
+
+    }
+
+    .thelink{
+        width: 15%;
+        height: 10%;
+        color: white;
+        margin-top: 2%;
+        background-color: indigo;
+        margin-left: 2%;
+        border-radius: 10%;
+        padding:1%;
+        font-size: 18px;
+        text-decoration:none;
+    }
+
+    .clearfloat{
+        clear:both;
+    }
+
+    .headtheform{
+        margin-left: 2%;
+    }
+    .thebutton{
+        margin-top: 2%;
+    }
 </style>
 
 
 
 
 <body>
-<div id="total">
-	<div id="Teamup">
-		<h4>Teamup</h4>
-	</div>
-	<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
-		<div class="container-fluid">
-			<!-- <div id="Teamup">
-              <p class="navbar-brand">Team up</p> -->
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<!-- </div> -->
-			<div class="<!-- collapse navbar-collapse -->" id="navbarNavDropdown">
-				<ul class="navbar-nav">
 
+<div class="top">
 
-					<li class="nav-item dropdown">
-						<p class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Search By Company
-						</p>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							<li><a class="dropdown-item" href="#">Google</a></li>
-							<li><a class="dropdown-item" href="#">Facebook</a></li>
-							<li><a class="dropdown-item" href="#">Amazon</a></li>
-							<li><a class="dropdown-item" href="#">Microsoft</a></li>
-						</ul>
-					</li>
+    <div id="Teamup">
+        <h2>User</h2>
+    </div>
+    <div class="thebutton" style="display:flex">
+        <form th:action="@{/logout}" method="post" class="headtheform">
 
-					<li class="nav-item dropdown">
-						<p class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Search By Role
-						</p>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							<li><a class="dropdown-item" href="#">Product Manager</a></li>
-							<li><a class="dropdown-item" href="#">Front End Engineer</a></li>
-							<li><a class="dropdown-item" href="#">Back End Engineer</a></li>
-							<li><a class="dropdown-item" href="#">UX Designer</a></li>
-							<li><a class="dropdown-item" href="#">Tester</a></li>
-						</ul>
-					</li>
+            <input type="submit" value="Sign Out" class="theform" />
+        </form>
 
-					<li class="nav-item dropdown">
-						<p class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Search By Project
-						</p>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							<li><a class="dropdown-item" href="#">Placeholder</a></li>
-							<li><a class="dropdown-item" href="#">Placeholder</a></li>
-							<li><a class="dropdown-item" href="#">Placeholder</a></li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-			<form class="d-flex">
-				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-				<button class="btn" type="submit">Search</button>
-			</form>
-			<a th:href="@{/viewTask}" style="color:white">got to task</a>
-		</div>
-	</nav>
+        <div class="headtheform">
+            <div style="background-color: indigo; border-radius: 10%; width: 100%; height: 100%;">
+                <a th:href="@{/viewTask}" style="color:white" class="thelink">Tasks</a>
+            </div>
+        </div>
 
+    </div>
 
 </div>
-<div id="leftbar">
-	<div id="Current">
-
-		<h2 id="current_member"><strong>Current Members</strong></h2>
-
-		<!-- <div class="container"> -->
-		<div class="row">
-
-			<div class="pic">
-				<img th:src="@{/images/teamup_headshot.png}"  alt=headshot>
-
-			</div>
-			<div class="text">
-				<p class="role">Leader</p>
-				<p class="name">Jasmine Freeman</p>
-			</div>
-
-		</div>
-
-		<div class="row">
-
-			<div class="pic">
-				<img th:src="@{/images/teamup_headshot.png}" alt=headshot>
-
-			</div>
-			<div class="text">
-				<p class="role">Leader</p>
-				<p class="name">Jasmine Freeman</p>
-			</div>
-
-		</div>
-
-		<div class="row">
-
-			<div class="pic">
-				<img th:src="@{/images/teamup_headshot.png}" alt=headshot>
-
-			</div>
-			<div class="text">
-				<p class="role">Leader</p>
-				<p class="name">Jasmine Freeman</p>
-			</div>
-
-		</div>
-
-		<div class="row">
-
-			<div class="pic">
-				<img th:src="@{/images/teamup_headshot.png}" alt=headshot>
-
-			</div>
-			<div class="text">
-				<p class="role">Leader</p>
-				<p class="name">Jasmine Freeman</p>
-			</div>
-
-		</div>
-
-	</div>
-
-
-	<div id="Role_In_Need">
-
-		<h2 id="in_need"><strong>Roles in Need</strong></h2>
-
-		<!-- <div class="container"> -->
-		<div class="row">
-
-			<div class="pic">
-				<img th:src="@{/images/teamup_headshot.png}" alt=headshot>
-
-			</div>
-			<div class="text">
-				<p class="needed_role">Product Manager</p>
-				<!-- <p class="name">Jasmine Freeman</p> -->
-			</div>
-
-		</div>
-
-		<div class="row">
-
-			<div class="pic">
-				<img th:src="@{/images/teamup_headshot.png}" alt=headshot>
-
-			</div>
-			<div class="text">
-				<p class="needed_role">Product Manager</p>
-				<!-- <p class="name">Jasmine Freeman</p> -->
-			</div>
-
-		</div>
-
-		<div class="row">
-
-			<div class="pic">
-				<img th:src="@{/images/teamup_headshot.png}" alt=headshot>
-
-			</div>
-			<div class="text">
-				<p class="needed_role">Product Manager</p>
-				<!-- <p class="name">Jasmine Freeman</p> -->
-			</div>
-
-		</div>
-
-
-
-	</div>
-</div>
+<div class="clearfloat"></div>
 
 <div id="main_content">
-	<!-- <div class="container">
+
+    <div class="container-fluid">
         <div class="row">
-            <div class="card">
-            	<img src="round.png" class="card-img" alt="headshot">
-            	<div class="card-body">
-            		<h5 class="card-title">Card title</h5>
-    				<p class="card-text">jgosgofj scofgpdshfgsfgfdsg</p>
-            	</div>
+            <!-- <div class="col" style="margin-left:5px"> -->
+            <div class=" border bg-light card" th:each="user: ${listUsers}">
+                <!-- <img th:src="@{/images/round.png}" -->
+                <img th:src="@{/images/round.png}"class="card-img" alt="headshot">
+                <div class="card-body">
+
+                    <p class="card-title name" th:text="${user.firstName}">First Name</p>
+                    <p class="card-title name" th:text="${user.lastName}">Last Name</p>
+                    <p class="card-text email" th:text="${user.email}">Email</p>
+
+                    <p class="card-text id" th:text="${user.id} ">ID</p>
+
+                </div>
             </div>
-		</div>
 
-	</div> -->
-<!--	<h4 class="num-result"style="color:white">306 Results Found</h4>-->
+        </div>
 
-
-
-	<div class="container">
-		<div class="row  row-cols-2 row-cols-lg-5 g-7 g-lg-4" th:each="user: ${listUsers}">
-			<div class="col">
-				<div class=" border bg-light card">
-					<img th:src="@{/images/round.png}"  class="card-img" alt="headshot">
-					<div class="card-body">
-
-						<p class="card-title name" th:text="${user.firstName}">First Name</p>
-						<p class="card-title name" th:text="${user.lastName}">Last Name</p>
-						<p class="card-text job-title" th:text="${user.email}">Email</p>
-
-						<p class="card-text phone" th:text="${user.id} ">ID</p>
-
-
-
-						<!--  <p class="card-title name" th:text="${user.firstName}">First Name</p>
-                        <p class="card-title name" th:text="${user.lastName}">Last Name</p>
-                        <p class="card-text job-title" th:text="${user.email}">Email</p>
-
-                        <p class="card-text phone" th:text="${user.id} ">ID</p>
-                         -->
-
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</div>
+    </div>
 
 </div>
-
-
-
-
-<div>
-	<form th:action="@{/logout}" method="post">
-		<p>
-			Welcome <b>[[${#request.userPrincipal.principal.fullName}]]</b>
-		</p>
-		<input type="submit" value="Sign Out" />
-	</form>
-</div>
-
-
 
 </body>
 

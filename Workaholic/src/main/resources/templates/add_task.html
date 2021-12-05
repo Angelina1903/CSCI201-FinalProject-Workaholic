@@ -33,6 +33,7 @@
 		padding-bottom: 3%;
 		/*height:100%;*/
 		margin-top: 10%;
+		border-radius: 15px 15px 15px 15px;
 
 	}
 .form-group {
@@ -74,11 +75,11 @@
 <body>
 <div id="total">
 	<div class="background">
-		<img th:src="@{/images/city3.jpeg}" class="img-fluid" alt="login-img">
+		<img th:src="@{/images/index-bg-2.jpg}" class="img-fluid" alt="login-img">
 	</div>
 	<div class="container login">
 		<div class="myImg">
-			<img th:src="@{/images/logo.png}" alt="Logo" width=250 height=125/>
+			<img th:src="@{/images/white-logo.png}" alt="Logo" width=250 height=125/>
 		</div>
 		<form th:action="@{/process_add_task}" th:object="${task}"
 			  method="post">
