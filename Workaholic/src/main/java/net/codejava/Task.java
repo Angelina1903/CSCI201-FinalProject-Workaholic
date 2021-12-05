@@ -24,6 +24,9 @@ public class Task {
 	@Column(name = "due_date", nullable = false, length = 20)
 	private String dueDate;
 
+	@Column(name = "claimed", nullable = false, length = 20)
+	private boolean claimed=false;
+
 	public String getName() {
 		return name;
 	}
@@ -46,5 +49,13 @@ public class Task {
 
 	public void setDueDate(String dueDate) {
 		this.dueDate = dueDate;
+	}
+
+	public boolean isClaimed() {
+		return claimed;
+	}
+
+	public void setClaimed(boolean claimed) {
+		this.claimed = claimed;
 	}
 }
