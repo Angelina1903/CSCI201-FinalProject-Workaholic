@@ -93,24 +93,24 @@ public class AppController {
 		List<Task> listTasks = taskRepo.findAll();
 
 		// create a new list to store all the claimed tasks
-		List<Task> claimedTasks = new ArrayList<>();
+		List<Task> UrgentTasks = new ArrayList<>();
 		for(Task i: listTasks) {
 			if(i.getUrgent().equals("yes")) {
-				claimedTasks.add(i);
+				UrgentTasks.add(i);
 			}
 		}
 
 		// create a new list to store all the claimed tasks
-		List<Task> unclaimedTasks = new ArrayList<>();
+		List<Task> NormalTasks = new ArrayList<>();
 		for(Task i: listTasks) {
 			if(i.getUrgent().equals("no")) {
-				unclaimedTasks.add(i);
+				NormalTasks.add(i);
 			}
 		}
 
 		model.addAttribute("listTasks", listTasks);
-		model.addAttribute("claimedTasks", claimedTasks);
-		model.addAttribute("unclaimedTasks", unclaimedTasks);
+		model.addAttribute("urgentTasks", UrgentTasks);
+		model.addAttribute("normalTasks", NormalTasks);
 		if(temp.getManager()) {
 			return "tasks_manager";
 		}else{
